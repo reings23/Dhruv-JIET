@@ -1,0 +1,26 @@
+body{
+    background-color: teal;
+    background-image: url("https://www.bmw.in/content/dam/bmw/common/all-models/7-series/sedan/2019/inspire/bmw-7series-sedan-inspire-taphold-01-slide-02-desktop.jpg");
+    height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+div{
+    box-sizing: border-box; 
+     width: 100%; 
+     align-content: center; 
+     align-items: center;
+}
+form{
+    margin: 0 auto;
+    width: 350px;
+}
+h1{
+    text-align: center;
+    color: rgb(255,0,0);
+}   
+h2{
+    text-align: center;
+    color:lightgoldenrodyellow;
+}
