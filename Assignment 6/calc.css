@@ -1,0 +1,39 @@
+body{
+    background-color: #5f9ea5;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+.first{
+    text-align: center;
+    padding-bottom: 20vh;
+    width: 410px;
+    height: 150px;
+    
+}
+.box{
+    background-color:crimson;
+    border: 2px solid brown;
+    width: 404% ;
+    height: 50px;
+    color: goldenrod;
+    font-size: 40px;
+}
+input[type = "button"]{
+    background-color: crimson;
+    color:  goldenrod;
+    width: 98px;
+    border: 1px solid brown;
+    height: 50px;
+    font-size: 40px;
+}
+input[type="text"]{
+    background-color:grey;
+    border: 2px solid brown;
+    width: 404%;
+    height: 50px;
+    font-size: 40px;
+
+}
