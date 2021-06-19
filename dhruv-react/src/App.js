@@ -6,20 +6,40 @@ import {
   Switch,
 } from "react-router-dom";
 import SignUp from "./Components/SignUp";
+import Login from "./Components/Login";
+import Homepage from "./Components/Homepage";
+
 class App extends React.Component {
+  state = {
+    user: {},
+  };
+
+  componentDidMount() {
+    let savedUser = localStorage.getItem("user");
+    if (savedUser && Object.keys(this.state.user).length === 0) {
+      this.setUserState(JSON.parse(savedUser).user);
+    }
+  }
+
+  setUserState = (user) => {
+    this.setState({ user: user });
+  };
   render() {
     return (
       <Router>
         <div>
           <Switch>
             <Route path={"/"} exact>
-              <h1>This is HomePage</h1>
+            <Homepage
+                firstName={this.state.user.firstName}
+                lastName={this.state.user.lastName}
+              />
             </Route>
-            <Route path={"/login"} >
-              <h1>This is Login</h1>
+            <Route path={"/login"}>
+              <Login setUserState={this.setUserState} />
             </Route>
-            <Route path={"/signup"} >
-              <SignUp />
+            <Route path={"/signup"}>
+              <SignUp setUserState={this.setUserState} />
             </Route>
             <Route path={"/contact-us"}>
               <h1>This is Contact-us</h1>
