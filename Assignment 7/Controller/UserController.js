@@ -87,7 +87,7 @@ exports.login = (req, res) => {
     Blog.find({ userId })
     .then((blogPost) => {
         if (blogPost.length === 0) {
-            return res.status(404).send("54456error")
+            return res.status(404).send("error")
         
         }
         console.log("Successfull")
