@@ -32,7 +32,7 @@ exports.login = (req, res) => {
         if (password === user.password) {
             const token = getToken(user);
           console.info("Login successful");
-          return res.status(200).send(user);
+          return res.status(200).send(`Welcome ${user.firstName} your details are ${user} and your token is ${token}  `)
         }
         console.warn("Password incorrect");
         return res.status(401).send("Password was incorrect");
@@ -66,7 +66,7 @@ exports.login = (req, res) => {
       console.error("No token was sent");
       return res.status(403).send("Invalid token");
     }
-    let decodedToken = JWT.verify(req.headers.token, "ssshhhItsASecretDontTellAnyone"); 
+    let decodedToken = JWT.verify(req.headers.token, "JIETSecretKey"); 
     let userId = decodedToken[ Object.keys(decodedToken)[0]];
     userId = mongoose.Types.ObjectId(userId);
     let blogPost = new Blog({
