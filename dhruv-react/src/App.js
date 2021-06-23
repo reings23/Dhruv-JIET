@@ -30,10 +30,7 @@ class App extends React.Component {
         <div>
           <Switch>
             <Route path={"/"} exact>
-            <Homepage
-                firstName={this.state.user.firstName}
-                lastName={this.state.user.lastName}
-              />
+            <Homepage user = {this.state.user}/>
             </Route>
             <Route path={"/login"}>
               <Login setUserState={this.setUserState} />
