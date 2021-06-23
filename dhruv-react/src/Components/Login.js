@@ -1,20 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 import Axios from "axios";
-import {withRouter} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
-class Login extends React.Component {
-  state = {
-    credentials: {},
-  };
+//class Login extends React.Component {
+  //state = {
+ //   credentials: {},
+ // };
+  const Login = (props) => {
+    const history = useHistory();
+    const {setUserState} = props;
+    const [credentials, setCredentials] = useState({});
+ 
 
-  onSubmitClick = async (event) => {
+  const onSubmitClick = async (event) => {
     event.preventDefault();
-    await Axios.post("http://localhost:8000/login", this.state.credentials)
+    await Axios.post("http://localhost:8000/login", credentials)
       .then(({ data }) => {
         console.info(data);
         localStorage.setItem("user", JSON.stringify(data));
-        this.props.setUserState(data.user);
-        this.props.history.push("/")
+        setUserState(data.user);
+        history.push("/")
       })
       .catch((error) => {
         console.error(error);
@@ -24,7 +29,7 @@ class Login extends React.Component {
       });
   };
 
-  render() {
+ // render() {
     return (
       <div className={"section"}>
         <form className={"ui form"}>
@@ -37,12 +42,10 @@ class Login extends React.Component {
                   type={"email"}
                   placeholder={"Email *"}
                   onChange={(e) => {
-                    this.setState({
-                      credentials: {
-                        ...this.state.credentials,
+                    setCredentials({
+                      ...credentials,
                         email: e.target.value,
-                      },
-                    });
+                      });
                   }}
                 />
               </div>
@@ -51,24 +54,23 @@ class Login extends React.Component {
                   type={"password"}
                   placeholder={"Password *"}
                   onChange={(e) => {
-                    this.setState({
-                      credentials: {
-                        ...this.state.credentials,
+                    setCredentials({
+                     ...credentials,
                         password: e.target.value,
-                      },
+                      
                     });
                   }}
                 />
               </div>
             </div>
           </div>
-          <button className={"ui primary button"} onClick={this.onSubmitClick}>
+          <button className={"ui primary button"} onClick={onSubmitClick}>
             Submit
           </button>
         </form>
       </div>
     );
-  }
-}
+  };
 
-export default withRouter(Login);
+
+export default Login;

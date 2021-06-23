@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -9,34 +9,44 @@ import SignUp from "./Components/SignUp";
 import Login from "./Components/Login";
 import Homepage from "./Components/Homepage";
 
-class App extends React.Component {
-  state = {
-    user: {},
-  };
+//class App extends React.Component {
+ // state = {
+ //   user: {},
+ // };
+ const App = () => {
+   const [user, setUser] = useState({});
 
-  componentDidMount() {
+   useEffect(() => {
     let savedUser = localStorage.getItem("user");
-    if (savedUser && Object.keys(this.state.user).length === 0) {
-      this.setUserState(JSON.parse(savedUser).user);
+    if (savedUser && Object.keys(user).length === 0) {
+    setUser(JSON.parse(savedUser).user);
     }
-  }
+  },[user]);
 
-  setUserState = (user) => {
-    this.setState({ user: user });
-  };
-  render() {
+
+  //componentDidMount() {
+   // let savedUser = localStorage.getItem("user");
+    //if (savedUser && Object.keys(this.state.user).length === 0) {
+   //   this.setUserState(JSON.parse(savedUser).user);
+   // }
+  //}
+
+  //setUserState = (user) => {
+    //this.setState({ user: user });
+  //};
+  //render() {
     return (
       <Router>
         <div>
           <Switch>
             <Route path={"/"} exact>
-            <Homepage user = {this.state.user}/>
+            <Homepage user = {user}/>
             </Route>
             <Route path={"/login"}>
-              <Login setUserState={this.setUserState} />
+              <Login setUserState={setUser} />
             </Route>
             <Route path={"/signup"}>
-              <SignUp setUserState={this.setUserState} />
+              <SignUp setUserState={setUser} />
             </Route>
             <Route path={"/contact-us"}>
               <h1>This is Contact-us</h1>
@@ -48,7 +58,7 @@ class App extends React.Component {
         </div>
       </Router>
     );
-  }
-}
+  };
+
 
 export default App;

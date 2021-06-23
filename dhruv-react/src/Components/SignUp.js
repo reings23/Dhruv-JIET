@@ -1,27 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/basic.css";
 import Axios from "axios";
-import {withRouter} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
-class SignUp extends React.Component {
-  state = { user: {} };
+//class SignUp extends React.Component {
+  //state = { user: {} };
+  const SignUp = (props) => {
+    const history = useHistory();
+    const {setUserState} = props;
+    const [user, setUser] = useState({});
 
-  onSubmitClick = async (event) => {
-    event.preventDefault();
-    console.log(this.state.user);
-    await Axios.post("http://localhost:8000/signup", this.state.user)
+  const onSubmitClick = async (event) => {
+   event.preventDefault();
+   console.log(user);
+    await Axios.post("http://localhost:8000/signup", user)
       .then(({ data }) => {
         localStorage.setItem("user", JSON.stringify(data));
         console.info(data);
-        this.props.setUserState(data.user);
-        this.props.history.push("/");
+        setUserState(data.user);
+        history.push("/");
       })
       .catch((error) => {
         console.error(error);
       });
   };
 
-  render() {
+  //render() {
     return (
       <div className={"section"}>
         <form className={"ui form"}>
@@ -34,11 +38,9 @@ class SignUp extends React.Component {
                   type={"text"}
                   placeholder={"First Name *"}
                   onChange={(e) => {
-                    this.setState({
-                      user: {
-                        ...this.state.user,
+                    setUser({
+                        ...user,
                         firstName: e.target.value,
-                      },
                     });
                   }}
                 />
@@ -48,11 +50,9 @@ class SignUp extends React.Component {
                   type={"text"}
                   placeholder={"Last Name *"}
                   onChange={(e) => {
-                    this.setState({
-                      user: {
-                        ...this.state.user,
+                   setUser ({
+                        ...user,
                         lastName: e.target.value,
-                      },
                     });
                   }}
                 />
@@ -62,11 +62,9 @@ class SignUp extends React.Component {
                   type={"email"}
                   placeholder={"Email *"}
                   onChange={(e) => {
-                    this.setState({
-                      user: {
-                        ...this.state.user,
+                   setUser ({
+                        ...user,
                         email: e.target.value,
-                      },
                     });
                   }}
                 />
@@ -76,27 +74,25 @@ class SignUp extends React.Component {
                   type={"password"}
                   placeholder={"Password *"}
                   onChange={(e) => {
-                    this.setState({
-                      user: {
-                        ...this.state.user,
+                     setUser({
+                        ...user,
                         password: e.target.value,
-                      },
                     });
                   }}
                 />
               </div>
             </div>
           </div>
-          <button className={"ui primary button"} onClick={this.onSubmitClick}>
+          <button className={"ui primary button"} onClick={onSubmitClick}>
             Submit
           </button>
         </form>
       </div>
     );
-  }
-}
+  };
 
-export default withRouter(SignUp);
+
+export default SignUp;
 
 
 
