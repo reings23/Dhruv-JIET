@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../models/user");
 const mongoose = require("mongoose");
 const JWT = require("jsonwebtoken");
 
@@ -79,10 +79,6 @@ exports.updateUser = (req, res) => {
       console.error("There was an error while updating user.", error);
       return res.status(500).send("ERROR");
     });
-};
-
-exports.isValid = (req, res) => {
-  return res.status(200).send("Token valid");
 };
 
 const getToken = (user) => {
