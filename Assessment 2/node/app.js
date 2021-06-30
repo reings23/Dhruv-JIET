@@ -1,10 +1,12 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const app = express();
 const axios = require("axios");
-const {Router} = require("express");
+
 
 app.use(express.urlencoded({ extended: false}));
 app.use(express.json());
+
 
 app.get("/data", (req,res) => {
     axios
@@ -18,7 +20,7 @@ app.get("/data", (req,res) => {
      });
 });
 
-Router.get("/getdata/:postId", (req, res) => {
+app.get("/getdata/:postId", (req, res) => {
     let { postID } = req.params;
     postID = mongoose.Types.ObjectId(postID);
     axios.get(`https://jsonplaceholder.typicode.com/${postId}/comments`);
